@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="159.0" prefWidth="262.0" style="-fx-background-color: #0c1421;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Maindownload">
+   <children>
+      <ProgressBar layoutX="33.0" layoutY="80.0" prefWidth="200.0" progress="0.0" />
+      <Pane layoutX="2.0" prefHeight="18.0" prefWidth="263.0" style="-fx-background-color: #09101a;" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="18.0" prefHeight="33.0" prefWidth="266.0" style="-fx-background-color: #161e2c;" text="ИДЁТ ЗАГРУЗКА ФАЙЛОВ..." textAlignment="CENTER" textFill="#cbcdd0" />
+   </children>
+</AnchorPane>

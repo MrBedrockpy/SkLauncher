@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
@@ -10,11 +9,6 @@
       <Pane prefHeight="34.0" prefWidth="839.0" style="-fx-background-color: #0b1320;" />
       <Line endX="-4.0" endY="1.0" layoutX="842.0" layoutY="33.0" startX="-842.0" startY="1.0" stroke="#219e89" />
       <Line endX="16.5" endY="-163.5" layoutX="631.0" layoutY="198.0" startX="16.5" startY="368.0" stroke="#219e89" />
-      <ImageView fitHeight="192.0" fitWidth="187.0" layoutX="648.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assets/settingsbutton.png" />
-         </image>
-      </ImageView>
    </children>
    <effect>
       <Blend />
