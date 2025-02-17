@@ -33,6 +33,7 @@ javafx {
 }
 
 dependencies {
+    implementation 'org.json:json:20231013'
     compileOnly lombok
     annotationProcessor lombok
 }

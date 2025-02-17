@@ -1,6 +1,7 @@
 package ru.mrbedrockpy.downloadlibs;
 
 import lombok.experimental.UtilityClass;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -10,7 +11,7 @@ import java.net.URL;
 @UtilityClass
 public class NetUtil {
 
-    public DownloadStatus downloadFile(String fileURL, String saveDir) {
+    public NetStatus downloadFile(String fileURL, String saveDir) {
 
         try {
 
@@ -18,20 +19,9 @@ public class NetUtil {
             HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
             int responseCode = httpConn.getResponseCode();
 
-            if (responseCode != HttpURLConnection.HTTP_OK) return DownloadStatus.SOURCE_NOT_FOUND;
+            if (responseCode != HttpURLConnection.HTTP_OK) return NetStatus.HTTP_ERROR;
 
-            String fileName;
-
-            String disposition = httpConn.getHeaderField("Content-Disposition");
-
-            if (disposition != null) {
-                int startIndex = disposition.indexOf("filename=");
-                if (startIndex > 0) {
-                    fileName = disposition.substring(startIndex + 9).replace("\"", "");
-                }
-            }
-
-            fileName = fileURL.substring(fileURL.lastIndexOf("/") + 1);
+            String fileName = getFileName(httpConn, fileURL);
 
             File directory = new File(saveDir);
             if (!directory.exists()) {
@@ -48,16 +38,66 @@ public class NetUtil {
                 }
             }
         } catch (MalformedURLException e) {
-            return DownloadStatus.SOURCE_NOT_FOUND;
+            return NetStatus.HTTP_ERROR;
         } catch (IOException e) {
-            return DownloadStatus.DOWNLOAD_ERROR;
+            return NetStatus.DOWNLOAD_ERROR;
         }
 
-        return DownloadStatus.SUCCESS;
+        return NetStatus.SUCCESS;
     }
 
-    public enum DownloadStatus {
-        SUCCESS, SOURCE_NOT_FOUND, DOWNLOAD_ERROR
+    public JSONObject getJSONObject(String fileURL) {
+
+        URL url;
+
+        try {
+            url = new URL(fileURL);
+        } catch (MalformedURLException e) {
+            return new JSONObject();
+        }
+
+        try {
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("GET");
+
+            connection.setRequestProperty("Accept", "application/json");
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+
+                return new JSONObject(response.toString());
+            } else {
+                return new JSONObject();
+            }
+
+        } catch (IOException e) {
+            return new JSONObject();
+        }
+
+    }
+
+    private static String getFileName(HttpURLConnection httpConn, String fileURL) {
+        String disposition = httpConn.getHeaderField("Content-Disposition");
+        if (disposition != null) {
+            int startIndex = disposition.indexOf("filename=");
+            if (startIndex > 0) {
+                return disposition.substring(startIndex + 9).replace("\"", "");
+            }
+        }
+        return fileURL.substring(fileURL.lastIndexOf("/") + 1);
+    }
+
+    public enum NetStatus {
+        SUCCESS, HTTP_ERROR, DOWNLOAD_ERROR
     }
 
 }
