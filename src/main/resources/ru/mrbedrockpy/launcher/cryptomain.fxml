@@ -3,12 +3,26 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.web.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="839.0" style="-fx-background-color: #0c1421;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="34.0" prefWidth="839.0" style="-fx-background-color: #0b1320;" />
-      <Line endX="-4.0" endY="1.0" layoutX="842.0" layoutY="33.0" startX="-842.0" startY="1.0" stroke="#219e89" />
-      <Line endX="16.5" endY="-163.5" layoutX="631.0" layoutY="198.0" startX="16.5" startY="368.0" stroke="#219e89" />
+      <Line endX="-4.0" endY="1.0" layoutX="842.0" layoutY="33.0" startX="-842.0" startY="1.0" stroke="#219e89">
+         <effect>
+            <Glow level="1.0" />
+         </effect></Line>
+      <Line endX="16.5" endY="-163.5" layoutX="631.0" layoutY="198.0" startX="16.5" startY="368.0" stroke="#219e89">
+         <effect>
+            <Glow level="1.0" />
+         </effect></Line>
+      <WebView id="cryptographic" layoutX="210.0" layoutY="35.0" prefHeight="285.0" prefWidth="437.0" />
+      <Line endX="-101.0" endY="-516.0" layoutX="311.0" layoutY="551.0" startX="-101.0" startY="14.0" stroke="#219e89">
+         <effect>
+            <Glow level="1.0" />
+         </effect>
+      </Line>
+      <WebView id="cryptographictwo" layoutX="-2.0" layoutY="35.0" prefHeight="285.0" prefWidth="211.0" />
    </children>
    <effect>
       <Blend />
